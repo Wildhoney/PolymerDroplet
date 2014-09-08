@@ -1,6 +1,6 @@
 {
   "name": "polymer-droplet",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Polymer.js adaptation of my popular EmberDroplet module for Ember.js.",
   "main": "dist/polymer-droplet.js",
   "directories": {
