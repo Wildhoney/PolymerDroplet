@@ -11,15 +11,8 @@
                  on-dragover="{{preventDefault}}"
                  on-drop="{{drop}}">
 
-            <!--<input type="file" multiple="multiple" class="files" />-->
-            <!--Blah.-->
-
-            <template repeat="{{image, index in images}}">
-
+            <template repeat="{{image in images}}">
                 <img class="image-preview" src="{{image}}" />
-
-                <!--<input type="text" name="Adam" value="Blah" />-->
-
             </template>
 
         </section>
