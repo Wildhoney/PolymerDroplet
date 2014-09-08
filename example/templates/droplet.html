@@ -14,7 +14,9 @@
             <!--<input type="file" multiple="multiple" class="files" />-->
             <!--Blah.-->
 
-            <template repeat="{{file, index in files}}">
+            <template repeat="{{image, index in images}}">
+
+                <img class="image-preview" src="{{image}}" />
 
                 <!--<input type="text" name="Adam" value="Blah" />-->
 
@@ -24,8 +26,18 @@
 
         <style type="text/css">
 
-            section.droparea {
+            section.droparea  {
+                padding: 5px;
+            }
 
+            section.droparea img.image-preview  {
+                float: left;
+                overflow: hidden;
+                width: 60px;
+                height: 60px;
+                margin: 10px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, .15);
+                border: 1px solid rgba(0, 0, 0, .15);
             }
 
         </style>
@@ -37,14 +49,14 @@
         Polymer('droplet-area', {
 
             /**
-             * @property files
+             * @property images
              * @type {Array}
              */
-            files: [],
+            images: [],
 
             /**
              * @property input
-             * @type {String}
+             * @type {String|Object}
              */
             input: '',
 
@@ -57,6 +69,16 @@
 
                 }
 
+                // Transform the input attribute into a valid node.
+                this.input = document.querySelector('input.' + this.input);
+
+                if (!this.input || !this.input.hasOwnProperty('files')) {
+
+                    // Assert that we have an element from the selector.
+                    throw "PolymerDroplet: Unable to resolve the `input` element.";
+
+                }
+
             },
 
             /**
@@ -65,6 +87,7 @@
              */
             drop: function drop(event, files) {
                 this.preventDefault(event);
+                this.images = [];
                 this.traverseFiles(event.dataTransfer.files);
             },
 
@@ -76,14 +99,37 @@
 
                 for (var index = 0, numFiles = files.length; index < numFiles; index++) {
 
-                    this.files.push(files[index]);
-                    console.log(this.files);
+                    var file = files[index];
+
+                    if (file.type.match(/^image\//i)) {
+                        this.readImage(file);
+                    }
 
                 }
 
                 // Assign the value to the input element.
-                var input = document.querySelector('input.' + this.input);
-                input.files = files;
+                this.input.files = files;
+
+            },
+
+            /**
+             * @method readImage
+             * @param image {Object}
+             * @return {void}
+             */
+            readImage: function readImage(image) {
+
+                var fileReader = new FileReader(),
+                    images     = this.images;
+
+                // Once the image has been read by the file reader.
+                fileReader.onload = function onload(event) {
+
+                    images.push(event.target.result);
+
+                }.bind(this);
+
+                fileReader.readAsDataURL(image);
 
             },
 
