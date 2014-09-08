@@ -1,0 +1,25 @@
+{
+  "name": "polymer-droplet",
+  "version": "0.1.0",
+  "description": "Polymer.js adaptation of my popular EmberDroplet module for Ember.js.",
+  "main": "dist/polymer-droplet.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wildhoney/PolymerDroplet.git"
+  },
+  "author": "Adam Timberlake <adam.timberlake@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wildhoney/PolymerDroplet/issues"
+  },
+  "homepage": "https://github.com/Wildhoney/PolymerDroplet",
+  "dependencies": {
+    "express": "^4.8.8"
+  }
+}

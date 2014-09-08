@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Polymer.js Droplet</title>
+
+    <!-- Dependencies! -->
+    <script type="text/javascript" src="js/vendor/platform/platform.js"></script>
+
+    <!-- Templates! -->
+    <link rel="import" href="templates/droplet.html" />
+
+</head>
+<body>
+
+    <form enctype="multipart/form-data">
+
+        <input type="file" name="files" multiple="multiple" class="files" />
+
+        <droplet-area input="files" style="height: 300px; width: 400px; background-color: rgba(0, 0, 0, .1)">
+
+
+        </droplet-area>
+
+        <input type="submit" name="Submit" />
+
+    </form>
+
+</body>
+</html>

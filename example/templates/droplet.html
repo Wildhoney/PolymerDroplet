@@ -1,0 +1,104 @@
+<link rel="import" href="../js/vendor/polymer/polymer.html">
+<link rel="import" href="../js/vendor/core-input/core-input.html">
+
+<polymer-element name="droplet-area" attributes="style input">
+
+    <template>
+
+        <section class="droparea" style="{{ style | styleObject }}"
+                 on-dragleave="{{preventDefault}}"
+                 on-dragenter="{{preventDefault}}"
+                 on-dragover="{{preventDefault}}"
+                 on-drop="{{drop}}">
+
+            <!--<input type="file" multiple="multiple" class="files" />-->
+            <!--Blah.-->
+
+            <template repeat="{{file, index in files}}">
+
+                <!--<input type="text" name="Adam" value="Blah" />-->
+
+            </template>
+
+        </section>
+
+        <style type="text/css">
+
+            section.droparea {
+
+            }
+
+        </style>
+
+    </template>
+
+    <script type="text/javascript">
+
+        Polymer('droplet-area', {
+
+            /**
+             * @property files
+             * @type {Array}
+             */
+            files: [],
+
+            /**
+             * @property input
+             * @type {String}
+             */
+            input: '',
+
+            ready: function ready() {
+
+                if (!this.input) {
+
+                    // Ensure the user has defined the `input` attribute.
+                    throw "PolymerDroplet: You have neglected to specify the `input` attribute.";
+
+                }
+
+            },
+
+            /**
+             * @method drop
+             * @return {void}
+             */
+            drop: function drop(event, files) {
+                this.preventDefault(event);
+                this.traverseFiles(event.dataTransfer.files);
+            },
+
+            /**
+             * @method traverseFiles
+             * @return {void}
+             */
+            traverseFiles: function traverseFiles(files) {
+
+                for (var index = 0, numFiles = files.length; index < numFiles; index++) {
+
+                    this.files.push(files[index]);
+                    console.log(this.files);
+
+                }
+
+                // Assign the value to the input element.
+                var input = document.querySelector('input.' + this.input);
+                input.files = files;
+
+            },
+
+            /**
+             * @method preventDefault
+             * @param event {Object}
+             * @return {void}
+             */
+            preventDefault: function preventDefault(event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
+        });
+
+    </script>
+
+</polymer-element>
